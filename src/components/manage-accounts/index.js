@@ -4,7 +4,6 @@ import { GlobalContext } from "@/context";
 import { useSession } from "next-auth/react";
 import { useContext, useEffect, useState } from "react";
 import CircleLoader from "../circle-loader";
-import Image from "next/image";
 import AccountForm from "./account-form";
 
 const initialFormData = {
@@ -18,7 +17,8 @@ export default function ManageAccounts() {
   const [showAccountForm, setShowAccountForm] = useState(false);
   const [formData, setFormData] = useState(initialFormData);
   const { data: session } = useSession();
-  async function getAllAcount() {
+
+  async function getAllAccounts() {
     const res = await fetch(
       `api/account/get-account?id=${session?.user?.uid}`,
       {
@@ -26,6 +26,7 @@ export default function ManageAccounts() {
       }
     );
     const data = await res.json();
+    console.log(data);
 
     if (data && data.data && data.data.length) {
       setAccounts(data.data);
@@ -36,8 +37,34 @@ export default function ManageAccounts() {
   }
 
   useEffect(() => {
-    getAllAcount();
+    getAllAccounts();
   }, []);
+
+  async function handleSave() {
+    const res = await fetch("/api/account/create-account", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...formData,
+        uid: session?.user?.uid,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      getAllAccounts();
+      setFormData(initialFormData);
+      setShowAccountForm(false);
+    } else {
+      getAllAccounts();
+    }
+
+    console.log(data, "datadata");
+  }
+  console.log(accounts, "accounts");
   if (pageLoader) return <CircleLoader />;
 
   return (
@@ -56,7 +83,7 @@ export default function ManageAccounts() {
                   key={item._id}
                 >
                   <div className="relative">
-                    <Image
+                    <img
                       src="https://occ-0-2611-3663.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAABfNXUMVXGhnCZwPI1SghnGpmUgqS_J-owMff-jig42xPF7vozQS1ge5xTgPTzH7ttfNYQXnsYs4vrMBaadh4E6RTJMVepojWqOXx.png?r=1d4"
                       alt="Account"
                       className="max-w-[200px] rounded min-w-[84px] max-h-[200px] min-h-[84px] object-cover w-[155px] h-[155px]"
@@ -95,10 +122,10 @@ export default function ManageAccounts() {
         </ul>
       </div>
       <AccountForm
+        handleSave={handleSave}
         formData={formData}
         setFormData={setFormData}
         showAccountForm={showAccountForm}
-            
       />
     </div>
   );
