@@ -9,6 +9,6 @@ export default function Browser() {
   console.log(session, "session");
 
   if (session === null) return <UnauthPage />;
-  
-  return <div> Browser</div>;
+
+  return <div> Browser </div>;
 }

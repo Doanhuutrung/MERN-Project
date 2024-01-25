@@ -5,13 +5,13 @@ const authOptions = {
   providers: [
     GithubProvider({
       clientId: "Iv1.fb58dfced60cde19",
-      clientSecret: "94c01472fc8da79c0d1f7043108e4d900ed61ddc",
+      clientSecret: "6c7a4380b3215bce4e6b34c61d8fd5488ad77787",
     }),
   ],
   callbacks: {
     async session({ session, token, user }) {
       session.user.username = session?.user?.name
-        .split(" ")
+        .split("")
         .join("")
         .toLocaleLowerCase();
 
