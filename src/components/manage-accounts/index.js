@@ -2,13 +2,21 @@
 
 import { GlobalContext } from "@/context";
 import { useSession } from "next-auth/react";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import CircleLoader from "../circle-loader";
 import Image from "next/image";
+import AccountForm from "./account-form";
+
+const initialFormData = {
+  name: "",
+  pin: "",
+};
 
 export default function ManageAccounts() {
   const { accounts, setAccounts, pageLoader, setPageLoader } =
     useContext(GlobalContext);
+  const [showAccountForm, setShowAccountForm] = useState(false);
+  const [formData, setFormData] = useState(initialFormData);
   const { data: session } = useSession();
   async function getAllAcount() {
     const res = await fetch(
@@ -86,6 +94,12 @@ export default function ManageAccounts() {
           ) : null}
         </ul>
       </div>
+      <AccountForm
+        formData={formData}
+        setFormData={setFormData}
+        showAccountForm={showAccountForm}
+            
+      />
     </div>
   );
 }
