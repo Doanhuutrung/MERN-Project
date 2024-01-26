@@ -56,6 +56,19 @@ export default function Navbar() {
             className="cursor-pointer object-contain"
             onClick={() => router.push("/browser")}
           />
+          <ul className="hidden md:space-x-4 md:flex cursor-pointer">
+            {menuItems.map((item) => (
+              <li
+                className="cursor-pointer text-[16px] font-light text-[#e5e5e5] transition duration-[.4s] hover:text-[#b3b3b3]"
+                key={item.id}
+              >
+                {item.title}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="font-light flex items-center space-x-4 text-sm">
+          
         </div>
       </header>
     </div>
