@@ -7,8 +7,7 @@ import CircleLoader from "../circle-loader";
 import AccountForm from "./account-form";
 import { TrashIcon } from "@heroicons/react/24/outline";
 import PinContainer from "./pin-container";
-import { usePathname } from "next/navigation";
-import { useRouter } from "next/router";
+import { usePathname, useRouter } from "next/navigation";
 
 const initialFormData = {
   name: "",
@@ -38,12 +37,14 @@ export default function ManageAccounts() {
 
   async function getAllAccounts() {
     const res = await fetch(
-      `api/account/get-account?id=${session?.user?.uid}`,
+      `/api/account/get-account?id=${session?.user?.uid}`,
       {
         method: "GET",
       }
     );
+
     const data = await res.json();
+
     console.log(data);
 
     if (data && data.data && data.data.length) {
@@ -87,7 +88,9 @@ export default function ManageAccounts() {
     const res = await fetch(`/api/account/remove-account?id=${getItem._id}`, {
       method: "DELETE",
     });
+
     const data = await res.json();
+
     if (data.success) {
       getAllAccounts();
       setShowDeleteIcon(false);
@@ -95,10 +98,10 @@ export default function ManageAccounts() {
   }
 
   async function handlePinSubmit(value, index) {
-    const response = await fetch("/api/account/login", {
+    const response = await fetch("/api/account/login-account", {
       method: "POST",
       headers: {
-        "Content-type": "application/josn",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         uid: session?.user?.uid,
@@ -106,7 +109,9 @@ export default function ManageAccounts() {
         pin: value,
       }),
     });
+
     const data = await response.json();
+
     if (data.success) {
       setLoggedInAccount(showPinContainer.account);
       sessionStorage.setItem(
@@ -121,16 +126,17 @@ export default function ManageAccounts() {
       setPin("");
     }
   }
+
   console.log(accounts, "accounts");
+
   if (pageLoader) return <CircleLoader />;
 
   return (
-    <div className="relative min-h-screen flex justify-center flex-col items-center">
+    <div className="min-h-screen flex justify-center flex-col items-center relative">
       <div className="flex justify-center flex-col items-center">
         <h1 className="text-white font-bold text-[54px] my-[36px]">
-          Who is Watching
+          Who is Watching?
         </h1>
-
         <ul className="flex p-0 my-[25px]">
           {accounts && accounts.length
             ? accounts.map((item) => (
@@ -152,7 +158,7 @@ export default function ManageAccounts() {
                     {showDeleteIcon ? (
                       <div
                         onClick={() => handleRemoveAccount(item)}
-                        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer z-10"
+                        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 cursor-pointer"
                       >
                         <TrashIcon width={30} height={30} color="black" />
                       </div>
