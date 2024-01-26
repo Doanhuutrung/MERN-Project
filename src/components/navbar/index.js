@@ -2,17 +2,23 @@
 
 import { useSession } from "next-auth/react";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { AiOutlineSearch } from "react-icons/ai";
+import Search from "./search";
+import { GlobalContext } from "@/context";
 
 export default function Navbar() {
   const { data: session } = useSession();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showSearchBar, setShowSearchBar] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
   const pathName = usePathname();
+  const { setPageLoader } = useContext(GlobalContext);
   const menuItems = [
     {
       id: "home",
-      title: "home",
+      title: "Home",
       path: "/browser",
     },
     {
@@ -68,7 +74,21 @@ export default function Navbar() {
           </ul>
         </div>
         <div className="font-light flex items-center space-x-4 text-sm">
-          
+          {showSearchBar ? (
+            <Search
+              pathName={pathName}
+              router={router}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              setPageLoader={setPageLoader}
+              setShowSearchBar={setShowSearchBar}
+            />
+          ) : (
+            <AiOutlineSearch
+              onClick={() => setShowSearchBar(true)}
+              className="hidden sm:inline sm:w-6 sm:h-6 cursor-pointer"
+            />
+          )}
         </div>
       </header>
     </div>
