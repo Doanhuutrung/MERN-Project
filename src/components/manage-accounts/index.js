@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 import { useContext, useEffect, useState } from "react";
 import CircleLoader from "../circle-loader";
 import AccountForm from "./account-form";
+import { TrashIcon } from "@heroicons/react/24/outline";
 
 const initialFormData = {
   name: "",
@@ -16,6 +17,7 @@ export default function ManageAccounts() {
     useContext(GlobalContext);
   const [showAccountForm, setShowAccountForm] = useState(false);
   const [formData, setFormData] = useState(initialFormData);
+  const [showDeleteIcon, setShowDeleteIcon] = useState(false);
   const { data: session } = useSession();
 
   async function getAllAccounts() {
@@ -64,6 +66,17 @@ export default function ManageAccounts() {
 
     console.log(data, "datadata");
   }
+
+  async function handleRemoveAccount(getItem){
+    const res = await fetch(`/api/account/remove-account?id=${getItem._id}`,{
+      method:"DELETE",
+    })
+    const data = await res.json()
+    if (data.success){
+      getAllAccounts()
+      setShowDeleteIcon(false)
+    }
+  }
   console.log(accounts, "accounts");
   if (pageLoader) return <CircleLoader />;
 
@@ -88,6 +101,11 @@ export default function ManageAccounts() {
                       alt="Account"
                       className="max-w-[200px] rounded min-w-[84px] max-h-[200px] min-h-[84px] object-cover w-[155px] h-[155px]"
                     />
+                    {showDeleteIcon ? (
+                      <div onClick={() => handleRemoveAccount(item)} className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer z-10">
+                        <TrashIcon width={30} height={30} color="black" />
+                      </div>
+                    ) : null}
                   </div>
                   <span className="mb-4">{item.name}</span>
                   <svg
@@ -120,6 +138,14 @@ export default function ManageAccounts() {
             </li>
           ) : null}
         </ul>
+        <div className="text-center">
+          <span
+            onClick={() => setShowDeleteIcon(!showDeleteIcon)}
+            className="border border-gray-100 cursor-pointer tracking-wide inline-flex text-sm px-[1.5em] py-[0.5em]"
+          >
+            Manage Profiles
+          </span>
+        </div>
       </div>
       <AccountForm
         handleSave={handleSave}
