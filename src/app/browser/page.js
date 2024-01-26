@@ -1,5 +1,6 @@
 "use client";
 
+import CommonLayout from "@/components/common-layout";
 import ManageAccounts from "@/components/manage-accounts";
 import UnauthPage from "@/components/unauth-page";
 import { GlobalContext } from "@/context";
@@ -15,5 +16,9 @@ export default function Browser() {
   if (session === null) return <UnauthPage />;
   if (loggedInAccount === null) return <ManageAccounts />;
 
-  return <div> Browser </div>;
+  return (
+    <main className="flex min-h-screen flex-col">
+      <CommonLayout />
+    </main>
+  );
 }
