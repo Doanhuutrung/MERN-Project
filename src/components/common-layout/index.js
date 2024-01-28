@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Head from "next/head";
 import Navbar from "../navbar";
-export default function CommonLayout() {
+export default function CommonLayout({mediaData}) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -15,7 +15,16 @@ export default function CommonLayout() {
       </Head>
       <>
         <Navbar />
-        <div className="relative pl-4 pb-4 lg:space-y-24"></div>
+        <div className="relative pl-4 pb-4 lg:space-y-24">
+          <section className="md:space-y-16">
+            {
+              mediaData && mediaData.length? 
+              mediaData.map(item =>) 
+              :null
+            }
+
+          </section>
+        </div>
       </>
     </motion.div>
   );
