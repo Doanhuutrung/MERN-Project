@@ -4,20 +4,25 @@ import { NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 
-export async function GET(req) {
+export async function DELETE(req) {
   try {
     await connectToDB();
-
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
-    const accountID = searchParams.get("accountID");
 
-    const getAllFavorites = await Favorites.find({ uid: id, accountID });
+    if (!id) {
+      return NextResponse.json({
+        success: false,
+        message: "Favorite item ID is required",
+      });
+    }
 
-    if (getAllFavorites) {
+    const deletedFavoriteItem = await Favorites.findByIdAndDelete(id);
+
+    if (deletedFavoriteItem) {
       return NextResponse.json({
         success: true,
-        data: getAllFavorites,
+        message: "Removed from you list",
       });
     } else {
       return NextResponse.json({
