@@ -5,7 +5,7 @@ export default function AccountForm({
   showAccountForm,
   formData,
   setFormData,
-  handleSave,
+  handleSave
 }) {
   return (
     showAccountForm && (
@@ -26,11 +26,10 @@ export default function AccountForm({
                   [e.target.name]: e.target.value,
                 })
               }
-              maxLength={12}
               placeholder="Enter your name"
               className="px-5 py-3 rounded-lg placeholder:text-red-700 text-lg text-[#e5b109] outline-none focus:outline-none"
             />
-            <input
+             <input
               name="pin"
               type="password"
               value={formData["pin"]}
@@ -44,12 +43,10 @@ export default function AccountForm({
               placeholder="Enter your PIN"
               className="px-5 py-3 rounded-lg placeholder:text-red-700 text-lg text-[#e5b109] outline-none focus:outline-none"
             />
-            <button
-              onClick={handleSave}
-              className="border p-4 bg-[#e5b109] outline-none rounded-lg text-black text-lg font-bold"
-            >
-              Save
-            </button>
+            <button 
+            onClick={handleSave}
+            className="border p-4 bg-[#e5b109] outline-none rounded-lg text-black text-lg font-bold" 
+            >Save</button>
           </div>
         </div>
       </motion.div>

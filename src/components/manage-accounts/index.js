@@ -37,7 +37,7 @@ export default function ManageAccounts() {
 
   async function getAllAccounts() {
     const res = await fetch(
-      `/api/account/get-account?id=${session?.user?.uid}`,
+      `/api/account/get-accounts?id=${session?.user?.uid}`,
       {
         method: "GET",
       }
@@ -97,7 +97,9 @@ export default function ManageAccounts() {
     }
   }
 
+
   async function handlePinSubmit(value, index) {
+    setPageLoader(true)
     const response = await fetch("/api/account/login-account", {
       method: "POST",
       headers: {
@@ -118,7 +120,11 @@ export default function ManageAccounts() {
         "loggedInAccount",
         JSON.stringify(showPinContainer.account)
       );
-      router.push(pathname);
+      if (pathname.includes("my-list"))
+        router.push(
+          `/my-list/${session?.user?.uid}/${showPinContainer.account?._id}`
+        );
+      else router.push(pathname);
       setPageLoader(false);
     } else {
       setPageLoader(false);
@@ -127,7 +133,7 @@ export default function ManageAccounts() {
     }
   }
 
-  console.log(accounts, "accounts");
+  console.log(pageLoader, "accounts");
 
   if (pageLoader) return <CircleLoader />;
 

@@ -13,10 +13,12 @@ export async function DELETE(req) {
     if (!id) {
       return NextResponse.json({
         success: false,
-        message: "Account is required",
+        message: "Account ID is mandatory",
       });
     }
+
     const deleteAccount = await Account.findByIdAndDelete(id);
+
     if (deleteAccount) {
       return NextResponse.json({
         success: true,
@@ -25,14 +27,14 @@ export async function DELETE(req) {
     } else {
       return NextResponse.json({
         success: false,
-        message: "something went wrong",
+        message: "Something Went wrong",
       });
     }
   } catch (e) {
     console.log(e);
     return NextResponse.json({
       success: false,
-      message: "something went wrong",
+      message: "Something Went wrong",
     });
   }
 }
