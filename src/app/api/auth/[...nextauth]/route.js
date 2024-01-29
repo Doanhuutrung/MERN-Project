@@ -11,7 +11,7 @@ const authOptions = {
   callbacks: {
     async session({ session, token, user }) {
       session.user.username = session?.user?.name
-        .split("")
+        .split(" ")
         .join("")
         .toLocaleLowerCase();
 

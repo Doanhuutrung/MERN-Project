@@ -37,7 +37,7 @@ export default function ManageAccounts() {
 
   async function getAllAccounts() {
     const res = await fetch(
-      `/api/account/get-accounts?id=${session?.user?.uid}`,
+      `/api/account/get-account?id=${session?.user?.uid}`,
       {
         method: "GET",
       }
