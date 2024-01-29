@@ -31,10 +31,10 @@ export default function TV() {
       const war = await getTVorMoviesByGenre("tv", 10768);
       const western = await getTVorMoviesByGenre("tv", 37);
       const dramaMovies = await getTVorMoviesByGenre("tv", 18);
-      // const allFavorites = await getAllfavorites(
-      //   session?.user?.uid,
-      //   loggedInAccount?._id
-      // );
+      const allFavorites = await getAllfavorites(
+        session?.user?.uid,
+        loggedInAccount?._id
+      );
       setMediaData(
         [
           {
@@ -82,11 +82,11 @@ export default function TV() {
           medias: item.medias.map((mediaItem) => ({
             ...mediaItem,
             type: "tv",
-            addedToFavorites: false,
-            // allFavorites && allFavorites.length
-            //   ? allFavorites.map((fav) => fav.movieID).indexOf(mediaItem.id) >
-            //     -1
-            //   : false,
+            addedToFavorites:
+              allFavorites && allFavorites.length
+                ? allFavorites.map((fav) => fav.movieID).indexOf(mediaItem.id) >
+                  -1
+                : false,
           })),
         }))
       );

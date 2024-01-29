@@ -28,10 +28,6 @@ export default function AccountPopup({
                     className="max-w-[30px] rounded min-w-[20px] max-h-[30px] min-h-[20px] object-cover w-[30px] h-[30px]"
                   />
                   <p className="mb-4">{account.name}</p>
-                  <h1>we got a match with how to stolen key </h1>
-                  <div> first thing to do is setup the primary key </div>
-                  <h3> so when users has to click the button manage and after that we st</h3>
-      
                 </div>
               ))
           : null}

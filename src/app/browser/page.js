@@ -6,6 +6,7 @@ import ManageAccounts from "@/components/manage-accounts";
 import UnauthPage from "@/components/unauth-page";
 import { GlobalContext } from "@/context";
 import {
+  getAllfavorites,
   getPopularMedias,
   getTopratedMedias,
   getTrendingMedias,
@@ -13,7 +14,7 @@ import {
 import { useSession } from "next-auth/react";
 import { useContext, useEffect } from "react";
 
-export default function Browser() {
+export default function Browse() {
   const {
     loggedInAccount,
     mediaData,
@@ -21,6 +22,7 @@ export default function Browser() {
     setPageLoader,
     pageLoader,
   } = useContext(GlobalContext);
+
   const { data: session } = useSession();
 
   console.log(session, "session");
@@ -29,11 +31,15 @@ export default function Browser() {
     async function getAllMedias() {
       const trendingTvShows = await getTrendingMedias("tv");
       const popularTvShows = await getPopularMedias("tv");
-      const topratedTvShows = await getTrendingMedias("tv");
+      const topratedTvShows = await getTopratedMedias("tv");
 
       const trendingMovieShows = await getTrendingMedias("movie");
       const popularMovieShows = await getPopularMedias("movie");
       const topratedMovieShows = await getTopratedMedias("movie");
+      const allFavorites = await getAllfavorites(
+        session?.user?.uid,
+        loggedInAccount?._id
+      );
       setMediaData([
         ...[
           {
@@ -53,6 +59,11 @@ export default function Browser() {
           medias: item.medias.map((mediaItem) => ({
             ...mediaItem,
             type: "tv",
+            addedToFavorites:
+              allFavorites && allFavorites.length
+                ? allFavorites.map((fav) => fav.movieID).indexOf(mediaItem.id) >
+                  -1
+                : false,
           })),
         })),
         ...[
@@ -73,18 +84,27 @@ export default function Browser() {
           medias: item.medias.map((mediaItem) => ({
             ...mediaItem,
             type: "movie",
+            addedToFavorites:
+              allFavorites && allFavorites.length
+                ? allFavorites.map((fav) => fav.movieID).indexOf(mediaItem.id) >
+                  -1
+                : false,
           })),
         })),
       ]);
+
       setPageLoader(false);
     }
+
     getAllMedias();
   }, []);
 
   if (session === null) return <UnauthPage />;
   if (loggedInAccount === null) return <ManageAccounts />;
   if (pageLoader) return <CircleLoader />;
+
   console.log(mediaData);
+
   return (
     <main className="flex min-h-screen flex-col">
       <CommonLayout mediaData={mediaData} />

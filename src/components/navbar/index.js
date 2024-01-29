@@ -8,6 +8,7 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { GlobalContext } from "@/context";
 import AccountPopup from "./account-popup";
 import CircleLoader from "../circle-loader";
+import DetailsPopup from "../details-popup";
 
 export default function Navbar() {
   const { data: session } = useSession();
@@ -67,7 +68,7 @@ export default function Navbar() {
 
   async function getAllAccounts() {
     const res = await fetch(
-      `/api/account/get-account?id=${session?.user?.uid}`,
+      `/api/account/get-all-accounts?id=${session?.user?.uid}`,
       {
         method: "GET",
       }
@@ -103,7 +104,7 @@ export default function Navbar() {
             height={120}
             alt="NETFLIX"
             className="cursor-pointer object-contain"
-            onClick={() => router.push("/browser")}
+            onClick={() => router.push("/browse")}
           />
           <ul className="hidden md:space-x-4 md:flex cursor-pointer">
             {menuItems.map((item) => (
@@ -151,6 +152,7 @@ export default function Navbar() {
           </div>
         </div>
       </header>
+      <DetailsPopup show={showDetailsPopup} setShow={setShowDetailsPopup} />
       {showAccountPopup && (
         <AccountPopup
           accounts={accounts}
