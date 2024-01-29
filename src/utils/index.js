@@ -16,7 +16,6 @@ export const getTrendingMedias = async (type) => {
   }
 };
 
-
 export const getTopratedMedias = async (type) => {
   try {
     const res = await fetch(

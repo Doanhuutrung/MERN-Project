@@ -3,7 +3,10 @@
 import { motion } from "framer-motion";
 import Head from "next/head";
 import Navbar from "../navbar";
-export default function CommonLayout({mediaData}) {
+import MediaRow from "../media-row";
+import Banner from "../banner";
+
+export default function CommonLayout({ mediaData }) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -11,18 +14,21 @@ export default function CommonLayout({mediaData}) {
       viewport={{ once: true }}
     >
       <Head>
-        <title>Netlfix Clone</title>
+        <title>Netflix Clone</title>
+        {/* to do -> to add all other properties */}
       </Head>
       <>
         <Navbar />
-        <div className="relative pl-4 pb-4 lg:space-y-24">
+        <div className="relative pl-4 pb-24 lg:space-y-24">
+          <Banner
+            medias={mediaData && mediaData.length ? mediaData[0].medias : []}
+          />
           <section className="md:space-y-16">
-            {
-              mediaData && mediaData.length? 
-              mediaData.map(item =>) 
-              :null
-            }
-
+            {mediaData && mediaData.length
+              ? mediaData.map((item) => (
+                  <MediaRow key="" title={item.title} medias={item.medias} />
+                ))
+              : null}
           </section>
         </div>
       </>

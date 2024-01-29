@@ -13,7 +13,7 @@ export default function Browser() {
   const {
     loggedInAccount,
     mediaData,
-    SetMediaData,
+    setMediaData,
     setPageLoader,
     pageLoader,
   } = useContext(GlobalContext);
@@ -30,19 +30,18 @@ export default function Browser() {
       const trendingMovieShows = await getTrendingMedias("movie");
       const popularMovieShows = await getTrendingMedias("movie");
       const topratedMovieShows = await getTrendingMedias("movie");
-
-      SetMediaData([
+      setMediaData([
         ...[
           {
-            title: "Trending TV shows",
+            title: "Trending TV Shows",
             medias: trendingTvShows,
           },
           {
-            title: "Popular TV shows",
+            title: "Popular TV Shows",
             medias: popularTvShows,
           },
           {
-            title: "Top rated TV shows",
+            title: "Top rated TV Shows",
             medias: topratedTvShows,
           },
         ].map((item) => ({
@@ -75,6 +74,7 @@ export default function Browser() {
       ]);
       setPageLoader(false);
     }
+    getAllMedias();
   }, []);
 
   if (session === null) return <UnauthPage />;
@@ -83,7 +83,7 @@ export default function Browser() {
   console.log(mediaData);
   return (
     <main className="flex min-h-screen flex-col">
-      <CommonLayout mediaData={mediaData}/>
+      <CommonLayout mediaData={mediaData} />
     </main>
   );
 }
