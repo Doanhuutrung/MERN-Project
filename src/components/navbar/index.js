@@ -33,7 +33,7 @@ export default function Navbar() {
     {
       id: "home",
       title: "Home",
-      path: "/browser",
+      path: "/browse",
     },
     {
       id: "tv",
@@ -88,7 +88,7 @@ export default function Navbar() {
   useEffect(() => {
     getAllAccounts();
   }, []);
-  
+
   if (pageLoader) return <CircleLoader />;
 
   return (

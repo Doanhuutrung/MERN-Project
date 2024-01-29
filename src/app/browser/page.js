@@ -5,7 +5,11 @@ import CommonLayout from "@/components/common-layout";
 import ManageAccounts from "@/components/manage-accounts";
 import UnauthPage from "@/components/unauth-page";
 import { GlobalContext } from "@/context";
-import { getPopularMedias, getTrendingMedias } from "@/utils";
+import {
+  getPopularMedias,
+  getTopratedMedias,
+  getTrendingMedias,
+} from "@/utils";
 import { useSession } from "next-auth/react";
 import { useContext, useEffect } from "react";
 
@@ -28,8 +32,8 @@ export default function Browser() {
       const topratedTvShows = await getTrendingMedias("tv");
 
       const trendingMovieShows = await getTrendingMedias("movie");
-      const popularMovieShows = await getTrendingMedias("movie");
-      const topratedMovieShows = await getTrendingMedias("movie");
+      const popularMovieShows = await getPopularMedias("movie");
+      const topratedMovieShows = await getTopratedMedias("movie");
       setMediaData([
         ...[
           {
