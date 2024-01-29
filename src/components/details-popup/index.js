@@ -75,7 +75,7 @@ export default function DetailsPopup({ show, setShow }) {
             ? extractMediaDetails.videos?.results[findIndexOfTrailer]?.key
             : findIndexOfClip !== -1
             ? extractMediaDetails.videos?.results[findIndexOfClip]?.key
-            : "XuDwndGaCFo"
+            : "xZdM606LQHQ"
         );
         setSimilarMedias(
           extractSimilarMovies.map((item) => ({
