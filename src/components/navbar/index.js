@@ -33,7 +33,7 @@ export default function Navbar() {
     {
       id: "home",
       title: "Home",
-      path: "/browse",
+      path: "/",
     },
     {
       id: "tv",

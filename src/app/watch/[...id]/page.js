@@ -32,12 +32,9 @@ export default function MyList() {
       console.log(data);
 
       if (data) {
-        setFavorites(
-          data.map((item) => ({
-            ...item,
-            addedToFavorites: true,
-          }))
-        );
+        setFavorites(data.map(item=> ({
+          ...item, addedToFavorites : true
+        })));
         setPageLoader(false);
       }
     }
@@ -69,7 +66,7 @@ export default function MyList() {
                   listView={true}
                 />
               ))
-            : "No favorites added"}
+            : 'No favorites added'}
         </div>
       </div>
     </motion.div>

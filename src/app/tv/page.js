@@ -31,10 +31,10 @@ export default function TV() {
       const war = await getTVorMoviesByGenre("tv", 10768);
       const western = await getTVorMoviesByGenre("tv", 37);
       const dramaMovies = await getTVorMoviesByGenre("tv", 18);
-      const allFavorites = await getAllfavorites(
-        session?.user?.uid,
-        loggedInAccount?._id
-      );
+      // const allFavorites = await getAllfavorites(
+      //   session?.user?.uid,
+      //   loggedInAccount?._id
+      // );
       setMediaData(
         [
           {
