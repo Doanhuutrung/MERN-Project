@@ -82,11 +82,6 @@ export default function TV() {
           medias: item.medias.map((mediaItem) => ({
             ...mediaItem,
             type: "tv",
-            addedToFavorites:
-              allFavorites && allFavorites.length
-                ? allFavorites.map((fav) => fav.movieID).indexOf(mediaItem.id) >
-                  -1
-                : false,
           })),
         }))
       );

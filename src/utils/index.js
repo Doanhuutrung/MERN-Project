@@ -1,15 +1,17 @@
-const APi_KEY = "d2011ab1ce2c5a0740f9e7141bf4e66c";
+const API_KEY = "d2011ab1ce2c5a0740f9e7141bf4e66c";
 const BASE_URL = "https://api.themoviedb.org/3";
 
 export const getTrendingMedias = async (type) => {
   try {
     const res = await fetch(
-      `${BASE_URL}/trending/${type}/day?api_key=${APi_KEY}&language=en-US`,
+      `${BASE_URL}/trending/${type}/day?api_key=${API_KEY}&language=en-US`,
       {
         method: "GET",
       }
     );
+
     const data = await res.json();
+
     return data && data.results;
   } catch (e) {
     console.log(e);
@@ -19,12 +21,14 @@ export const getTrendingMedias = async (type) => {
 export const getTopratedMedias = async (type) => {
   try {
     const res = await fetch(
-      `${BASE_URL}/${type}/top_rated?api_key=${APi_KEY}&language=en-US`,
+      `${BASE_URL}/${type}/top_rated?api_key=${API_KEY}&language=en-US`,
       {
         method: "GET",
       }
     );
+
     const data = await res.json();
+
     return data && data.results;
   } catch (e) {
     console.log(e);
@@ -34,19 +38,21 @@ export const getTopratedMedias = async (type) => {
 export const getPopularMedias = async (type) => {
   try {
     const res = await fetch(
-      `${BASE_URL}/${type}/popular?api_key=${APi_KEY}&language=en-US`,
+      `${BASE_URL}/${type}/popular?api_key=${API_KEY}&language=en-US`,
       {
         method: "GET",
       }
     );
+
     const data = await res.json();
+
     return data && data.results;
   } catch (e) {
     console.log(e);
   }
 };
 
-export const getTVorMoviesByGenre = async (type) => {
+export const getTVorMoviesByGenre = async (type, id) => {
   try {
     const res = await fetch(
       `${BASE_URL}/discover/${type}?api_key=${API_KEY}&language=en-US&include_adult=false&sort_by=popularity.desc&with_genres=${id}`,
@@ -54,7 +60,9 @@ export const getTVorMoviesByGenre = async (type) => {
         method: "GET",
       }
     );
+
     const data = await res.json();
+
     return data && data.results;
   } catch (e) {
     console.log(e);
