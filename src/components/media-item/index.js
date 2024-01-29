@@ -126,7 +126,9 @@ export default function MediaItem({
 
     const data = await res.json();
 
-    if (data.success) updateFavorites();
+    if (data.success) {
+      updateFavorites();
+    }
   }
 
   return (
@@ -144,7 +146,7 @@ export default function MediaItem({
           src={`${baseUrl}${media?.backdrop_path || media?.poster_path}`}
           alt="Media"
           layout="fill"
-          className="rounded sm object-cover md:rounded hover:rounded-sm"
+          className="rounded-sm object-cover md:rounded hover:rounded-sm"
           onClick={() =>
             router.push(
               `/watch/${media?.type}/${listView ? media?.movieID : media?.id}`

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { signOut, useSession } from "next-auth/react";
@@ -18,6 +19,7 @@ export default function Navbar() {
   const [showAccountPopup, setShowAccountPopup] = useState(false);
   const router = useRouter();
   const pathName = usePathname();
+  
 
   const {
     setPageLoader,
