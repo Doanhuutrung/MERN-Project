@@ -68,7 +68,7 @@ export default function Navbar() {
 
   async function getAllAccounts() {
     const res = await fetch(
-      `/api/account/get-all-accounts?id=${session?.user?.uid}`,
+      `/api/account/get-accounts?id=${session?.user?.uid}`,
       {
         method: "GET",
       }
