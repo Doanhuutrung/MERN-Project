@@ -5,11 +5,15 @@ import { XMarkIcon } from "@heroicons/react/24/outline";
 import { useContext } from "react";
 import { GlobalContext } from "@/context";
 import { useEffect } from "react";
-import { getAllfavorites, getSimilarTVorMovies, getTVorMovieDetailsByID } from "@/utils";
+import {
+  getAllfavorites,
+  getSimilarTVorMovies,
+  getTVorMovieDetailsByID,
+} from "@/utils";
 import { useState } from "react";
 import ReactPlayer from "react-player";
 import MediaItem from "../media-item";
-import { AiFillPlayCircle } from "react-icons/ai";
+// import { AiFillPlayCircle } from "react-icons/ai";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
@@ -25,7 +29,7 @@ export default function DetailsPopup({ show, setShow }) {
   } = useContext(GlobalContext);
   const [key, setKey] = useState("");
 
-  const router = useRouter()
+  const router = useRouter();
   const { data: session } = useSession();
 
   console.log(currentMediaInfoIdAndType);
@@ -75,17 +79,16 @@ export default function DetailsPopup({ show, setShow }) {
             ? extractMediaDetails.videos?.results[findIndexOfTrailer]?.key
             : findIndexOfClip !== -1
             ? extractMediaDetails.videos?.results[findIndexOfClip]?.key
-            : "xZdM606LQHQ"
+            : "8etThCjtYD8"
         );
         setSimilarMedias(
           extractSimilarMovies.map((item) => ({
             ...item,
             type: currentMediaInfoIdAndType.type === "movie" ? "movie" : "tv",
             addedToFavorites:
-            allFavorites && allFavorites.length
-              ? allFavorites.map((fav) => fav.movieID).indexOf(item.id) >
-                -1
-              : false,
+              allFavorites && allFavorites.length
+                ? allFavorites.map((fav) => fav.movieID).indexOf(item.id) > -1
+                : false,
           }))
         );
       }
@@ -96,7 +99,7 @@ export default function DetailsPopup({ show, setShow }) {
 
   function handleClose() {
     setShow(false);
-    setCurrentMediaInfoIdAndType(null)
+    setCurrentMediaInfoIdAndType(null);
   }
 
   return (
@@ -124,6 +127,7 @@ export default function DetailsPopup({ show, setShow }) {
           <div className="relative pt-[56.25%]">
             <ReactPlayer
               url={`https://www.youtube.com/watch?v=${key}`}
+              // url="https://api.themoviedb.org/3/movie/movie_id/videos?language=en-US"
               width={"100%"}
               height={"100%"}
               style={{ position: "absolute", top: "0", left: "0" }}
@@ -139,8 +143,7 @@ export default function DetailsPopup({ show, setShow }) {
                     )
                   }
                   className="cursor-pointer flex items-center gap-x-2 rounded px-5 py-1.5 text-sm font-semibold transition hover:opacity-75 md:py-2.5 md:px-8 md:text-xltext-black"
-                >
-                </button>
+                ></button>
               </div>
             </div>
           </div>
