@@ -164,7 +164,7 @@ export default function MediaItem({
             }
             className={`${
               media?.addedToFavorites && !listView && "cursor-not-allowed"
-            } cursor-pointer border flex p-2 items-center gap-x-2 rounded-full  text-sm font-semibold transition hover:opacity-90 border-white   bg-black opacity-75 text-black`}
+            } cursor-pointer border flex p-2 items-center gap-x-2 rounded-full  text-sm font-semibold transition hover:opacity-90 border-white bg-black opacity-75 text-black`}
           >
             {media?.addedToFavorites ? (
               <CheckIcon color="#ffffff" className="h-7 w-7" />
@@ -180,7 +180,7 @@ export default function MediaItem({
                 id: listView ? media?.movieID : media?.id,
               });
             }}
-            className="cursor-pointer p-2 border flex items-center gap-x-2 rounded-full  text-sm font-semibold transition hover:opacity-90  border-white  bg-black opacity-75 "
+            className="cursor-pointer p-2 border flex items-center gap-x-2 rounded-full text-sm font-semibold transition hover:opacity-90  border-white  bg-black opacity-75 "
           >
             <ChevronDownIcon color="#fffffff" className="h-7 w-7" />
           </button>

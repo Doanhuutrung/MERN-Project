@@ -5,6 +5,7 @@ import { NextResponse } from "next/server";
 export const dynamic = "force-dynamic";
 
 export async function DELETE(req) {
+  console.log(req)
   try {
     await connectToDB();
     const { searchParams } = new URL(req.url);
@@ -37,4 +38,5 @@ export async function DELETE(req) {
       message: "Something Went wrong",
     });
   }
+  
 }

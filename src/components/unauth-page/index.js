@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { signIn } from "next-auth/react";
@@ -5,6 +6,7 @@ import { motion } from "framer-motion";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Image from "next/image";
 
 const questions = [
   {
@@ -45,7 +47,7 @@ function UnauthBanner({ router }) {
     "
       >
         <div className="flex items-center justify-between">
-          <img
+          <Image
             src="https://rb.gy/ulxxee"
             alt="netflix"
             width={120}
@@ -102,7 +104,7 @@ export default function UnauthPage() {
                 Frequently asked questions
               </h1>
               {questions.map((item, index) => (
-                <div key="" className="flex flex-col gap-3">
+                <div item={item} key={index} className="flex flex-col gap-3">
                   <div
                     onClick={() =>
                       setShowCurrentAns(showCurrentAns === index ? null : index)
