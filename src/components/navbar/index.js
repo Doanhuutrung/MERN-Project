@@ -100,7 +100,7 @@ export default function Navbar() {
       >
         <div className="flex items-center space-x-2 md:space-x-10">
           <img
-            src="https://rb.gy/ulxxee"
+            src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg"
             width={120}
             height={120}
             alt="NETFLIX"

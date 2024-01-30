@@ -41,6 +41,7 @@ export default function AccountForm({
               }
               maxLength={4}
               placeholder="Enter your PIN"
+              required
               className="px-5 py-3 rounded-lg placeholder:text-red-700 text-lg text-[#e5b109] outline-none focus:outline-none"
             />
             <button 
