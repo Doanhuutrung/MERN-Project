@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from "react";
 import CircleLoader from "../circle-loader";
 import AccountForm from "./account-form";
 import { TrashIcon } from "@heroicons/react/24/outline";
+import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import PinContainer from "./pin-container";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -25,6 +26,7 @@ export default function ManageAccounts() {
   const [showAccountForm, setShowAccountForm] = useState(false);
   const [formData, setFormData] = useState(initialFormData);
   const [showDeleteIcon, setShowDeleteIcon] = useState(false);
+  const [showEditIcon, setShowEditIcon] = useState(false);
   const [pin, setPin] = useState("");
   const [pinError, setPinError] = useState(false);
   const [showPinContainer, setShowPinContainer] = useState({
@@ -45,8 +47,6 @@ export default function ManageAccounts() {
 
     const data = await res.json();
 
-    console.log(data);
-
     if (data && data.data && data.data.length) {
       setAccounts(data.data);
       setPageLoader(false);
@@ -58,6 +58,19 @@ export default function ManageAccounts() {
   useEffect(() => {
     getAllAccounts();
   }, []);
+
+  async function handleUpdate(getItem) {
+    const res = await fetch(`/api/account/edit-acount?id=${getItem._id}`, {
+      method: "UPDATE",
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      getAllAccounts();
+      setShowEditIcon(false);
+    }
+  }
 
   async function handleSave() {
     const res = await fetch("/api/account/create-account", {
@@ -97,9 +110,8 @@ export default function ManageAccounts() {
     }
   }
 
-
-  async function handlePinSubmit(value, index) {
-    setPageLoader(true)
+  async function handlePinSubmit(value) {
+    setPageLoader(true);
     const response = await fetch("/api/account/login-account", {
       method: "POST",
       headers: {
@@ -161,12 +173,27 @@ export default function ManageAccounts() {
                       alt="Account"
                       className="max-w-[200px] rounded min-w-[84px] max-h-[200px] min-h-[84px] object-cover w-[155px] h-[155px]"
                     />
+
+                    {/* step===1 */}
                     {showDeleteIcon ? (
                       <div
                         onClick={() => handleRemoveAccount(item)}
                         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 cursor-pointer"
                       >
                         <TrashIcon width={30} height={30} color="black" />
+                      </div>
+                    ) : null}
+                    {/* step === 2 */}
+                    {showEditIcon ? (
+                      <div
+                        onClick={() => handleUpdate(item)}
+                        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 cursor-pointer"
+                      >
+                        <PencilSquareIcon
+                          width={30}
+                          height={30}
+                          color="black"
+                        />
                       </div>
                     ) : null}
                   </div>
@@ -203,8 +230,35 @@ export default function ManageAccounts() {
         </ul>
         <div className="text-center">
           <span
-            onClick={() => setShowDeleteIcon(!showDeleteIcon)}
+            onClick={() => {
+              if (showEditIcon) {
+                setShowEditIcon(false);
+                setShowDeleteIcon(false);
+              } else {
+                setShowEditIcon(!showEditIcon);
+                setShowDeleteIcon(showEditIcon);
+              }
+
+              // setStep((pre) => (pre === 1 ? 0 : 1));
+            }}
             className="border border-gray-100 cursor-pointer tracking-wide inline-flex text-sm px-[1.5em] py-[0.5em]"
+          >
+            Edit Profiles
+          </span>
+        </div>
+        <div>
+          <span
+            onClick={() => {
+              if (showDeleteIcon) {
+                setShowDeleteIcon(false);
+                setShowEditIcon(false);
+              } else {
+                setShowDeleteIcon(!showDeleteIcon);
+                setShowEditIcon(showDeleteIcon);
+              }
+            }}
+            // setStep((pre) => (pre === 2 ? 0 : 2));
+            className="border border-gray-100 cursor-pointer tracking-wide inline-flex text-sm px-[1.5em] py-[0.5em] mt-4"
           >
             Manage Profiles
           </span>
