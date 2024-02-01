@@ -5,9 +5,8 @@ import { useSession } from "next-auth/react";
 import { useContext, useEffect, useState } from "react";
 import CircleLoader from "../circle-loader";
 import AccountForm from "./account-form";
-import { TrashIcon } from "@heroicons/react/24/outline";
+import { PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
-import { UserPlusIcon } from "@heroicons/react/24/outline";
 import PinContainer from "./pin-container";
 import { usePathname, useRouter } from "next/navigation";
 
@@ -59,19 +58,6 @@ export default function ManageAccounts() {
   useEffect(() => {
     getAllAccounts();
   }, []);
-
-  async function handleUpdate(getItem) {
-    const res = await fetch(`/api/account/edit-acount?id=${getItem._id}`, {
-      method: "UPDATE",
-    });
-
-    const data = await res.json();
-
-    if (data.success) {
-      getAllAccounts();
-      setShowEditIcon(false);
-    }
-  }
 
   async function handleSave() {
     const res = await fetch("/api/account/create-account", {
@@ -185,7 +171,7 @@ export default function ManageAccounts() {
                     {/* step === 2 */}
                     {showEditIcon ? (
                       <div
-                        onClick={() => handleUpdate(item)}
+                        onClick={() => router.push("/account")}
                         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 cursor-pointer"
                       >
                         <PencilSquareIcon
@@ -194,7 +180,7 @@ export default function ManageAccounts() {
                           color="black"
                         />
                       </div>
-                    ) : null}
+                    ) : null} 
                   </div>
                   <span className="mb-4">{item.name}</span>
                   {/* <svg
@@ -221,9 +207,9 @@ export default function ManageAccounts() {
           {accounts && accounts.length < 4 ? (
             <li
               onClick={() => setShowAccountForm(!showAccountForm)}
-              className="border text-black bg-[#e5b109] font-bold text-lg border-black max-w-[200px] rounded min-w-[84px] max-h-[200px] min-h-[84px] w-[155px] h-[155px] cursor-pointer flex justify-center items-center ml-5"
+              className="border text-white font-bold text-lg border-white max-w-[200px] rounded min-w-[84px] max-h-[200px] min-h-[84px] w-[155px] h-[155px] cursor-pointer flex justify-center items-center ml-5"
             >
-              <UserPlusIcon width={80} height={80}/>
+              <PlusIcon width={80} height={80}/>
             </li>
           ) : null}
         </ul>

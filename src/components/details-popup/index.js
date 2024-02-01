@@ -161,9 +161,7 @@ export default function DetailsPopup({ show, setShow }) {
                 </div>
               </div>
             </div>
-            <h2 className="mt-10 mb-6 cursor-pointer text-sm font-semibold text-[#e5e5e5] transition-colors duration-200 hover:text-white md:text-2xl">
-              More Like This
-            </h2>
+            <h2 className="mt-10 mb-6 cursor-pointer text-sm font-semibold text-[#e5e5e5] transition-colors duration-200 hover:text-white md:text-2xl"></h2>
             <div className="grid grid-cols-5 gap-3 items-center scrollbar-hide md:p-2">
               {similarMedias && similarMedias.length
                 ? similarMedias
