@@ -2,7 +2,6 @@
 
 import { GlobalContext } from "@/context";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useContext } from "react";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { IoMdInformationCircleOutline } from "react-icons/io";
@@ -17,7 +16,6 @@ export default function Banner({ medias }) {
 
   console.log(createRandomMedia, "createRandomMedia");
 
-  const router = useRouter();
   const {setShowDetailsPopup} = useContext(GlobalContext)
   return (
     <div className="flex flex-col space-y-2 py-16 md:space-y-4 lg:h-[65vh] lg:justify-end lg:pb-12 lg:pl-24">

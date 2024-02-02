@@ -165,7 +165,7 @@ export default function ManageAccounts() {
                         onClick={() => handleRemoveAccount(item)}
                         className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 cursor-pointer"
                       >
-                        <TrashIcon width={30} height={30} color="black" />
+                        <TrashIcon width={50} height={50} color="black" />
                       </div>
                     ) : null}
                     {/* step === 2 */}
@@ -213,7 +213,7 @@ export default function ManageAccounts() {
             </li>
           ) : null}
         </ul>
-        <div className="text-center">
+        {/* <div className="text-center">
           <span
             onClick={() => {
               if (showEditIcon) {
@@ -230,7 +230,7 @@ export default function ManageAccounts() {
           >
             Edit Profiles
           </span>
-        </div>
+        </div> */}
         <div>
           <span
             onClick={() => {
